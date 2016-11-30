@@ -12,16 +12,6 @@ private let emojiItemCellIdentifier = "emojiItemCellIdentifier"
 class EmojiViewControllerCell: UICollectionViewCell {
     
     // MARK:- 懒加载
-    // 可以显示文字,可以显示图片
-//    private lazy var emojiButton : UIButton = {
-//        
-//        let button = UIButton()
-//        button.setTitleColor(UIColor.blackColor(), forState: .Normal)
-//        button.userInteractionEnabled = false
-//        button.titleLabel?.font = UIFont.systemFontOfSize(32)
-//        return button
-//        
-//    }()
     
     private lazy var collectionView : UICollectionView = {
         let collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: EmoticonCollectionViewCellLayout())
