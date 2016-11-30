@@ -10,7 +10,7 @@ import UIKit
 
 class EmojiPack: NSObject {
     
-    var emojiArray : [Emoji] = [Emoji]()
+    lazy var emojiArray : [Emoji] = [Emoji]()
     private let pageTotleCount = 3 * columnsNumber
     init(fileName : String) {
         super.init()

@@ -50,7 +50,6 @@ class EmojiViewController: UIViewController {
         collectionView.backgroundColor = UIColor(red: 246/256.0, green: 246/256.0, blue: 246/256.0, alpha: 1.0)
         collectionView.dataSource = self
         collectionView.bounces = false
-        collectionView.delegate = self
         collectionView.registerClass(EmojiViewControllerCell.self, forCellWithReuseIdentifier: emojiViewControllerIdentifier)
         return collectionView
         
@@ -81,6 +80,19 @@ class EmojiViewController: UIViewController {
         
         toolBar.titles = titles
         
+        
+        // 监听通知
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didselectedEmojiItemClick:", name: emojiItemNotificationCenter, object: nil)
+        
+    }
+    
+    func didselectedEmojiItemClick(infor : NSNotification){
+        guard let emoji = infor.object as?  Emoji else { return }
+        emojiCallBack(emoji: emoji)
+    }
+    
+    deinit{
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
 }
@@ -113,29 +125,48 @@ extension EmojiViewController : UICollectionViewDataSource {
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
         
-        let emojiPake = emojiManage.emojiPakes[section]
+        /*
+        if groups == nil { return 0 }
+        print("pppppppp",groups?.count)
+        let pageNum = (groups!.count - 1) / 8 + 1
+        pageControl.numberOfPages = pageNum
         
-        return emojiPake.emojiArray.count
+        return pageNum
+
+        */
+        
+        let emojiPake = emojiManage.emojiPakes[section]
+        let pageNumber = (emojiPake.emojiArray.count - 1) / 21 + 1
+        print("pageNumber = \(pageNumber)")
+        return pageNumber
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
         
         let collectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(emojiViewControllerIdentifier, forIndexPath: indexPath) as! EmojiViewControllerCell
-        collectionViewCell.emoji = emojiManage.emojiPakes[indexPath.section].emojiArray[indexPath.item]
-        
+//        collectionViewCell.emoji = emojiManage.emojiPakes[indexPath.section].emojiArray[indexPath.item]
+        collectionViewCell.backgroundColor = UIColor.redColor()
+        setupCell(collectionViewCell, indexPath: indexPath)
         return collectionViewCell
     }
     
-}
-
-// MARK:- UICollectionViewDelegate
-extension EmojiViewController : UICollectionViewDelegate {
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath){
-        let emoji = emojiManage.emojiPakes[indexPath.section].emojiArray[indexPath.item]
-        
-        emojiCallBack(emoji: emoji)
-        
+    
+    func setupCell(cell : EmojiViewControllerCell,indexPath : NSIndexPath){
+        // 1  0 ~ 20
+        // 2  21 ~ 41
+        // 3  42 ~ 62
+        // 取出对应的页面数据的个数传递给cell中的collectionView
+        let emojiPake = emojiManage.emojiPakes[indexPath.section]
+        print("emojiPake.emojiArray = \(emojiPake.emojiArray.count)")
+            let startItem = indexPath.item * 21
+            var endItem = (indexPath.item + 1) * 21 - 1
+            // 处理越界问题
+            if endItem > emojiPake.emojiArray.count - 1{
+                endItem = emojiPake.emojiArray.count - 1
+            }
+            let tempGroup = Array(emojiPake.emojiArray[startItem ... endItem])
+            cell.groups = tempGroup
+        }
     }
-}
 
 // MARK:- ToolBarViewDelegate
 extension EmojiViewController : ToolBarViewDelegate {
@@ -153,11 +184,25 @@ class EmoticonCollectionViewLayout : UICollectionViewFlowLayout {
     override func prepareLayout() {
         super.prepareLayout()
         // 1.计算itemWH
+//        
+//        let itemWH = UIScreen.mainScreen().bounds.width / CGFloat(columnsNumber)
+//        
+//        // 2.设置layout的属性
+//        itemSize = CGSize(width: itemWH, height: itemWH)
+//        minimumInteritemSpacing = 0
+//        minimumLineSpacing = 0
+//        scrollDirection = .Horizontal
+//        // 3.设置collectionView的属性
+//        collectionView?.pagingEnabled = true
+//        collectionView?.showsHorizontalScrollIndicator = false
+//        collectionView?.showsVerticalScrollIndicator = false
+//        let insetMargin = (collectionView!.bounds.height - 3 * itemWH) / 2
+//        if PHONE_5 == false{
+//            
+//            collectionView?.contentInset = UIEdgeInsets(top: insetMargin, left: 0, bottom: insetMargin, right: 0)
+//        }
         
-        let itemWH = UIScreen.mainScreen().bounds.width / CGFloat(columnsNumber)
-        
-        // 2.设置layout的属性
-        itemSize = CGSize(width: itemWH, height: itemWH)
+        itemSize = collectionView!.bounds.size
         minimumInteritemSpacing = 0
         minimumLineSpacing = 0
         scrollDirection = .Horizontal
@@ -165,11 +210,6 @@ class EmoticonCollectionViewLayout : UICollectionViewFlowLayout {
         collectionView?.pagingEnabled = true
         collectionView?.showsHorizontalScrollIndicator = false
         collectionView?.showsVerticalScrollIndicator = false
-        let insetMargin = (collectionView!.bounds.height - 3 * itemWH) / 2
-        if PHONE_5 == false{
-            
-            collectionView?.contentInset = UIEdgeInsets(top: insetMargin, left: 0, bottom: insetMargin, right: 0)
-        }
     }
 }
 

@@ -24,6 +24,7 @@
 		0F6DEEBE1DEC0BEF000E0806 /* ToolBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DEEB21DEC0BEF000E0806 /* ToolBarView.swift */; };
 		0F6DEEBF1DEC0BEF000E0806 /* EmojiTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DEEB41DEC0BEF000E0806 /* EmojiTextView.swift */; };
 		0F6DEEC01DEC0BEF000E0806 /* EmojiViewControllerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F6DEEB51DEC0BEF000E0806 /* EmojiViewControllerCell.swift */; };
+		0FBCCAD01DEEBDB700EE8954 /* EmojiItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FBCCACF1DEEBDB700EE8954 /* EmojiItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		0F6DEEB21DEC0BEF000E0806 /* ToolBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToolBarView.swift; sourceTree = "<group>"; };
 		0F6DEEB41DEC0BEF000E0806 /* EmojiTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiTextView.swift; sourceTree = "<group>"; };
 		0F6DEEB51DEC0BEF000E0806 /* EmojiViewControllerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiViewControllerCell.swift; sourceTree = "<group>"; };
+		0FBCCACF1DEEBDB700EE8954 /* EmojiItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiItemCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 			children = (
 				0F6DEEB41DEC0BEF000E0806 /* EmojiTextView.swift */,
 				0F6DEEB51DEC0BEF000E0806 /* EmojiViewControllerCell.swift */,
+				0FBCCACF1DEEBDB700EE8954 /* EmojiItemCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -278,6 +281,7 @@
 				0F6DEEB81DEC0BEF000E0806 /* Emoji.swift in Sources */,
 				0F6DEEB91DEC0BEF000E0806 /* EmojiManage.swift in Sources */,
 				0F6DEE871DEC0A85000E0806 /* AppDelegate.swift in Sources */,
+				0FBCCAD01DEEBDB700EE8954 /* EmojiItemCell.swift in Sources */,
 				0F6DEEBD1DEC0BEF000E0806 /* ToolBarCell.swift in Sources */,
 				0F6DEEBB1DEC0BEF000E0806 /* EmojiRegular.swift in Sources */,
 				0F6DEEBC1DEC0BEF000E0806 /* EmojiTextAttachment.swift in Sources */,
@@ -470,6 +474,7 @@
 				0F6DEEA21DEC0A85000E0806 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0F6DEEA31DEC0A85000E0806 /* Build configuration list for PBXNativeTarget "EmojiKeyboardUITests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +483,7 @@
 				0F6DEEA51DEC0A85000E0806 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
